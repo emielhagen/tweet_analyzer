@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Body:</strong>
   <%= @tweet.body %>
@@ -15,5 +13,9 @@
   <%= @tweet.score %>
 </p>
 
-<%= link_to 'Edit', edit_tweet_path(@tweet) %> |
+<p>
+  <strong>Average score for: <%= @tweet.query %></strong>
+  <%= @tweet.avg_score %>
+</p>
+
 <%= link_to 'Back', tweets_path %>

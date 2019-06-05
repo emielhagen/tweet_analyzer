@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2019_06_04_062506) do
 
   create_table "tweets", force: :cascade do |t|
+    t.string "query"
     t.text "body"
     t.string "sentiment"
     t.decimal "score"

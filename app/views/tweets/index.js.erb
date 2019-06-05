@@ -1,0 +1,7 @@
+function addTweets(reviewHTML) {
+  const tweets = document.getElementById('tweets');
+  tweets.innerHTML = null;
+  tweets.insertAdjacentHTML('afterEnd', reviewHTML);
+}
+
+addTweets('<%= j render "tweets/form" %>');

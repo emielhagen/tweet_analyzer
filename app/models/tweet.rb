@@ -1,10 +1,35 @@
 class Tweet < ApplicationRecord
-  def sync
+  def self.sync(query)
     client = Twitter::REST::Client.new do |config|
-      config.consumer_key        = Rails.application.secrets.consumer_key
-      config.consumer_secret     = Rails.application.secrets.consumer_secret
-      config.access_token        = Rails.application.secrets.access_token
-      config.access_token_secret = Rails.application.secrets.access_token_secret
+      config.consumer_key        = ENV['TWITTER_API_KEY']
+      config.consumer_secret     = ENV['TWITTER_API_SECRET']
+      config.access_token        = ENV['TWITTER_ACCESS_TOKEN']
+      config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
     end
+
+    created = []
+
+    client.search("#{query} -rt").first(10).each do |tweet|
+      created << create(body: tweet.text, query: query)
+    end
+
+
+    created.sort_by(&:score).reverse!
+  end
+
+  before_save :set_sentiment, if: :body_changed?
+
+  scope :positive, ->{ where(sentiment: :positive) }
+  scope :negative, ->{ where(sentiment: :negative) }
+  scope :neutral, ->{ where(sentiment: :neutral) }
+
+  def set_sentiment
+    self.sentiment = $analyzer.sentiment(body)
+    self.score = $analyzer.score(body)
+  end
+
+  def avg_score
+    scores = Tweet.where(query: query).map(&:score)
+    scores.reduce(&:+) / scores.count
   end
 end
