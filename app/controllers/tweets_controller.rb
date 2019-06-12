@@ -3,7 +3,7 @@ class TweetsController < ApplicationController
 
   def index
     Tweet.sync(params[:query]) if params[:query].present?
-    @tweets = Tweet.paginate(page: params[:page], per_page: 10)
+    @tweets = Tweet.paginate(page: params[:page], per_page: 50)
 
     respond_to do |format|
       format.html { render 'tweets/index' }
