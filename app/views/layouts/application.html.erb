@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <%= favicon_link_tag asset_path('http://www.iconarchive.com/download/i82970/limav/flat-gradient-social/Twitter.ico') %>
     <title>TweetAnalyzer</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,5 +12,7 @@
 
   <body>
     <%= yield %>
+    <%= javascript_pack_tag 'application' %>
+    <%= stylesheet_pack_tag 'application' %>
   </body>
 </html>

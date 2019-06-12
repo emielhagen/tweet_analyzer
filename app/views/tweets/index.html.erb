@@ -11,9 +11,6 @@
 <table>
   <thead>
     <tr>
-      <h3>test</h3>
-    </tr>
-    <tr>
       <th>Body</th>
       <th>Sentiment</th>
       <th>Score</th>
@@ -21,9 +18,10 @@
     </tr>
   </thead>
 
-  <tbody id='tweets'>
+  <tbody id='tweets' class='infinite-scroll'>
     <%= render 'form' %>
   </tbody>
 </table>
 
+<%= will_paginate @tweets %>
 <br>

@@ -2,12 +2,8 @@ class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:query].present?
-      @tweets = Tweet.sync(params[:query])
-    else
-      @tweets = Tweet.all.sort_by(&:score).reverse!
-    end
-
+    Tweet.sync(params[:query]) if params[:query].present?
+    @tweets = Tweet.paginate(page: params[:page], per_page: 10)
 
     respond_to do |format|
       format.html { render 'tweets/index' }
