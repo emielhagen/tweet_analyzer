@@ -1,0 +1,19 @@
+<% @tweets.each do |tweet| %>
+  <tr class='tweet-info'>
+    <td><%= tweet.body %></td>
+    <td><%= tweet.sentiment %></td>
+    <% if tweet.score > 0.5 %>
+      <td>
+        <i class="fas fa-thumbs-up" id='thumb-up'></i>
+        <%= tweet.score %>
+      </td>
+    <% else %>
+      <td>
+        <i class="fas fa-thumbs-down" id='thumb-down'></i>
+        <%= tweet.score %>
+      </td>
+    <% end %>
+    <td><%= link_to tweet.query, tweet_path(tweet) %></td>
+  </tr>
+<% end %>
+

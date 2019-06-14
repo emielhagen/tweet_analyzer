@@ -5,7 +5,6 @@
   <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Get tweets on topic" %>
 <% end %>
 
-
 <h1>Search twitter for sentiments on a topic</h1>
 
 <table>
@@ -19,9 +18,11 @@
   </thead>
 
   <tbody id='tweets' class='infinite-scroll'>
-    <%= render 'form' %>
+    <%= render 'tweet_partial' %>
   </tbody>
 </table>
 
-<%= will_paginate @tweets %>
 <br>
+<div id="paginator">
+  <%= will_paginate @tweets %>
+</div>

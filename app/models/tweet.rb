@@ -9,7 +9,7 @@ class Tweet < ApplicationRecord
 
     created = []
 
-    client.search("#{query} -rt").first(10).each do |tweet|
+    client.search("#{query} -rt").first(500).each do |tweet|
       created << create(body: tweet.text, query: query)
     end
 
@@ -22,6 +22,7 @@ class Tweet < ApplicationRecord
   scope :positive, ->{ where(sentiment: :positive) }
   scope :negative, ->{ where(sentiment: :negative) }
   scope :neutral, ->{ where(sentiment: :neutral) }
+  scope :scored, ->{ where('score != 0') }
 
   def set_sentiment
     self.sentiment = $analyzer.sentiment(body)

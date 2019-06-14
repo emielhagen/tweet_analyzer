@@ -1,9 +1,0 @@
-<% @tweets.each do |tweet| %>
-  <tr class='tweet-info'>
-    <td><%= tweet.body %></td>
-    <td><%= tweet.sentiment %></td>
-    <td><%= tweet.score %></td>
-    <td><%= link_to tweet.query, tweet_path(tweet) %></td>
-  </tr>
-<% end %>
-
